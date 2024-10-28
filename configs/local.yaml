@@ -1,4 +1,4 @@
-env: "local"
+env: "local" #local, dev, prod
 
 service:
   name: "notification-service"
