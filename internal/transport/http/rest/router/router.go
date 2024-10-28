@@ -20,7 +20,7 @@ func (r *Router) InitRouter() {
 
 	// notification-service endpoints
 
-	r.Mux.HandleFunc("POST /events", r.Ctl.EventNotifier)
+	// r.Mux.HandleFunc("POST /events", r.Ctl.EventNotifier)
 
 	// other endpoints...
 

@@ -5,6 +5,7 @@ go 1.23.2
 require github.com/go-yaml/yaml v2.1.0+incompatible
 
 require (
-	gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 // indirect
+	github.com/mattn/go-sqlite3 v1.14.24 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

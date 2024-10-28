@@ -27,6 +27,7 @@ func main() {
 	ctx := context.Background()
 
 	if err := app.Run(ctx, cfg); err != nil {
-		slog.Warn(err.Error())
+		slog.Error(err.Error())
+		// app.Stop
 	}
 }
