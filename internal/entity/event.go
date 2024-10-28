@@ -4,13 +4,13 @@ import "time"
 
 // Event entity
 type Event struct {
-	ID         int       `json:"id,omitempty"`
-	OrderType  string    `json:"orderType"`
-	SessionID  string    `json:"sessionId"`
-	Card       string    `json:"card"`
-	EventDate  time.Time `json:"eventDate"`
-	WebSiteURL string    `json:"websiteUrl"`
-	CreatedAt  time.Time `json:"-"`
+	ID         int       `json:"-" sql:"id"`
+	OrderType  string    `json:"orderType" sql:"order_type"`
+	SessionID  string    `json:"sessionId" sql:"session_id"`
+	Card       string    `json:"card" sql:"card"`
+	EventDate  time.Time `json:"eventDate" sql:"event_date"`
+	WebSiteURL string    `json:"websiteUrl" sql:"website_url"`
+	CreatedAt  time.Time `json:"-" sql:"created_at"`
 }
 
 // TODO: GenFakeEvent, implement method for generating event with fake data
