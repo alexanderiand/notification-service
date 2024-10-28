@@ -17,7 +17,7 @@ func Run(ctx context.Context, cfg *config.Config) error {
 	}
 	slog.Debug("successful created a new sqlite client")
 
-	if err := db.DB.Ping(); err != nil {
+	if err := db.Ping(); err != nil {
 		slog.Error(err.Error())
 		return err
 	}

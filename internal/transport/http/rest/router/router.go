@@ -1,17 +1,22 @@
 package router
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/alexanderiand/notification-service/internal/transport/http/rest/controller"
+)
 
 // Router
 type Router struct {
 	Mux *http.ServeMux
-	// Controller
+	Ctl *controller.Controller
 	// Middleware
 }
 
-func New() *Router {
+func New(ctl *controller.Controller) *Router {
 	return &Router{
-		// Ctl, Mdl
+		Mux: http.NewServeMux(),
+		Ctl: ctl,
 	}
 }
 
@@ -20,7 +25,7 @@ func (r *Router) InitRouter() {
 
 	// notification-service endpoints
 
-	// r.Mux.HandleFunc("POST /events", r.Ctl.EventNotifier)
+	r.Mux.HandleFunc("POST /events", r.Ctl.NotifyClient)
 
 	// other endpoints...
 

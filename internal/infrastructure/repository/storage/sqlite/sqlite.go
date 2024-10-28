@@ -7,6 +7,7 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 
+	"github.com/alexanderiand/notification-service/internal/entity"
 	"github.com/alexanderiand/notification-service/pkg/config"
 )
 
@@ -21,8 +22,23 @@ var (
 	ErrInvalidDBPath    = errors.New("error, invalid database file path")
 )
 
+// Storage
+type Storage interface {
+	NotificationProvider
+	NotificationSaver
+}
+
+type NotificationProvider interface {
+	GetAllEvents() (events []*entity.Event, err error)
+}
+
+type NotificationSaver interface {
+	SaveEvent(event *entity.Event) (evenID int, err error)
+}
+
 type SQLite struct {
-	DB *sql.DB
+	Storage
+	*sql.DB
 }
 
 // New SQLite client constructor, return *SQLite, error
@@ -63,4 +79,17 @@ func DoWithTries(fn func() error, attempts int, delay time.Duration) error {
 		return nil
 	}
 	return errors.New("error, 0 connection attempts left: the database is not connected")
+}
+
+// 
+func (s *SQLite) SaveEvent(event *entity.Event) (evenID int, err error) {
+	// TODO: implement
+
+	return 0, nil
+}
+
+func (s *SQLite) GetAllEvents() (events []*entity.Event, err error) {
+	// TODO: implement
+
+	return nil, nil
 }
