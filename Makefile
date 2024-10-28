@@ -20,4 +20,4 @@ build_and_run: test
 run: race
 	go run cmd/notification_service/main.go
 
-.DEFAULT_GOAL := run
+.DEFAULT_GOAL := ru
