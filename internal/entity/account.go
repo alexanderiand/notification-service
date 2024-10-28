@@ -1,12 +1,11 @@
 package entity
 
-
 // Account entity
 type Account struct {
-	ID int
+	ID       int
 	ClientID int
-	Balance int
-	CardPAN string
+	Balance  int
+	CardPAN  string
 	// other...
 }
 

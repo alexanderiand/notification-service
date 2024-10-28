@@ -2,6 +2,9 @@
 
 .PHONY: fmt lint test race build run
 
+include .env
+export
+
 fmt:
 	go fmt ./...
 
@@ -20,4 +23,4 @@ build_and_run: test
 run: race
 	go run cmd/notification_service/main.go
 
-.DEFAULT_GOAL := ru
+.DEFAULT_GOAL := run

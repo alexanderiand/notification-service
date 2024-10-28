@@ -5,9 +5,6 @@ service:
   version: "v0.0.1"
 
 http_server:
-  host: "localhost"
-  post: "8080"
-  write_timeout: 5 # 5 second
-  read_timeout: 5 # 5 second
+  rw_timeouts: 5 # 5 second
   idle_timeout: 30 # 30 second
   max_header_size: 3 # 3 megabyte
