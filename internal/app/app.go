@@ -7,6 +7,8 @@ import (
 )
 
 func Run(ctx context.Context, cfg *config.Config) error { //  TODO:  cfg
+	// TODO: init db 
+
 
 	return nil
 }
