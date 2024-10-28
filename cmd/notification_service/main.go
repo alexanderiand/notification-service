@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"log/slog"
 
@@ -25,6 +26,12 @@ func main() {
 	slog.Debug("logger successful initialized")
 
 	ctx := context.Background()
+
+	// run service
+	slog.Info(fmt.Sprintf("The %s@%s, with env: %s started",
+	cfg.Service.Name,
+	cfg.Service.Version,
+	cfg.Env))
 
 	if err := app.Run(ctx, cfg); err != nil {
 		slog.Error(err.Error())

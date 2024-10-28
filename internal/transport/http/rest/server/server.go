@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"net/http"
 	"time"
 
@@ -27,5 +28,14 @@ func New(cfg *config.Config, r *router.Router) (srv *HTTPServer) {
 	}
 }
 
-// Start
-func ()
+// Start the http server
+// If something going wrong, return error
+func (s *HTTPServer) Start() error {
+	return s.httpServer.ListenAndServe()
+}
+
+// Shutdown http server, receive parent context
+// If something going wrong, return error
+func (s *HTTPServer) Shutdown(ctx context.Context) error {
+	return s.httpServer.Shutdown(ctx)
+}
