@@ -28,7 +28,7 @@ func main() {
 	ctx := context.Background()
 
 	// run service
-	slog.Info(fmt.Sprintf("The %s@%s, with env: %s started",
+	slog.Info(fmt.Sprintf("%s@%s with env: %s started",
 		cfg.Service.Name,
 		cfg.Service.Version,
 		cfg.Env))

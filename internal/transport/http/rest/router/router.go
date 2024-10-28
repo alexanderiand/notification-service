@@ -6,12 +6,15 @@ import (
 	"strings"
 
 	"github.com/alexanderiand/notification-service/internal/transport/http/rest/controller"
+	"github.com/alexanderiand/notification-service/internal/transport/http/rest/middleware"
 	"github.com/alexanderiand/notification-service/pkg/config"
 )
 
 const (
+	// endpoint parts
 	baseURL = "/api/v1/"
 	events  = "events"
+
 	// http methods
 	post = "POST "
 )
@@ -20,7 +23,6 @@ const (
 type Router struct {
 	Mux *http.ServeMux
 	Ctl *controller.Controller
-	// Middleware
 }
 
 func New(ctl *controller.Controller) *Router {
@@ -32,10 +34,11 @@ func New(ctl *controller.Controller) *Router {
 
 func (r *Router) InitRouter(cfg *config.Config) {
 	// middleware
+	mdl := middleware.New()
 
 	// notification-service endpoints
 
-	r.Mux.HandleFunc(endpointJoiner(post, baseURL, events), r.Ctl.NotifyClient)
+	r.Mux.HandleFunc(endpointJoiner(post, baseURL, events), mdl.MainMiddleware(r.Ctl.NotifyClient))
 
 	// other endpoints...
 

@@ -34,26 +34,23 @@ func Run(ctx context.Context, cfg *config.Config) error {
 
 	// implement DI
 	repo := repository.New(db)
-	slog.Debug("successful create a new instance of the notification")
 	usecase := usecase.New(repo)
-	slog.Debug("successful create a new instance of the usecase - notification usecase")
 	controller := controller.New(usecase)
-	slog.Debug("successful create a new instance of the controller")
 
 	// create a new instance of the Router eq http.ServeMux
 	router := router.New(controller)
-	slog.Debug("successful create a new instance of the router")
 	router.InitRouter(cfg) // mapping request to controller methods
+	slog.Debug("the serveMux router successful initialized")
 
 	// create and start a http server instance
 	httpSrv := server.New(cfg, router)
 
 	// Implement graceful shutdown
 	sigChan := make(chan os.Signal, 1)
-
 	defer close(sigChan)
 
 	// run the http server into a separate goroutine
+	slog.Debug("the http server is running")
 	go func() {
 		if err := httpSrv.Start(); err != nil {
 			slog.Error(err.Error())

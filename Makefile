@@ -2,7 +2,7 @@
 
 .PHONY: fmt lint test race build run
 
-include .env
+include local.env
 export
 
 fmt:

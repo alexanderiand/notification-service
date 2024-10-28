@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/alexanderiand/notification-service/internal/entity"
@@ -34,6 +35,7 @@ func New(uc UseCase) *Controller {
 func (c *Controller) NotifyClient(w http.ResponseWriter, r *http.Request) {
 	// TODO: implement
 
+	fmt.Println("Notify Client")
 }
 
 // SaveNotification
