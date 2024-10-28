@@ -29,12 +29,17 @@ func main() {
 
 	// run service
 	slog.Info(fmt.Sprintf("The %s@%s, with env: %s started",
-	cfg.Service.Name,
-	cfg.Service.Version,
-	cfg.Env))
+		cfg.Service.Name,
+		cfg.Service.Version,
+		cfg.Env))
+
+	// context with cancel for stopping the service if happened internal error
+	ctx, cancel := context.WithCancel(context.Background())
 
 	if err := app.Run(ctx, cfg); err != nil {
 		slog.Error(err.Error())
-		// app.Stop
+		// TODO: implement advanced error handling
+		cancel()
+		return
 	}
 }

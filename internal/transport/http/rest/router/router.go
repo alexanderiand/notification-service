@@ -39,8 +39,9 @@ func (r *Router) InitRouter(cfg *config.Config) {
 
 	// other endpoints...
 
-	// print endpoint in terminal for information user about endpoints 
-	fmt.Printf("\nNotification Service endpoints:\n\thttp://%s", endpointJoiner(cfg.HTTPServer.Addr, baseURL, events))
+	// print endpoint in terminal for information user about endpoints
+	fmt.Printf("\nNotification Service endpoints:\n\thttp://%s\n\nPress Ctrl+C for stopping service\n",
+		endpointJoiner(cfg.HTTPServer.Addr, baseURL, events))
 }
 
 // endpoint parts joiner

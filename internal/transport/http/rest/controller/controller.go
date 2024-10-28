@@ -31,7 +31,7 @@ func New(uc UseCase) *Controller {
 	}
 }
 
-func(c *Controller) NotifyClient(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) NotifyClient(w http.ResponseWriter, r *http.Request) {
 	// TODO: implement
 
 }

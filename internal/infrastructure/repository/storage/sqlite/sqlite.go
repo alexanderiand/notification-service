@@ -81,7 +81,6 @@ func DoWithTries(fn func() error, attempts int, delay time.Duration) error {
 	return errors.New("error, 0 connection attempts left: the database is not connected")
 }
 
-// 
 func (s *SQLite) SaveEvent(event *entity.Event) (evenID int, err error) {
 	// TODO: implement
 
