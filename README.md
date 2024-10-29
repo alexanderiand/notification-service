@@ -102,7 +102,7 @@ curl -X POST http://localhost:8080/api/v1/events \
 
 **Upon sending an event, the following will be printed in the console:**
 
-**1. Event, `json`:**
+**1. request log by middleware, `json`:**
 ```json
 {
   "time":"2024-10-29T05:06:57.42342775+05:00",
