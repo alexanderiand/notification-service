@@ -53,10 +53,23 @@ make race   # Run tests with race condition detection
 make build_and_run  # Build the binary and run it
 ```
 
-### Running the Project
+## Running the Project
 
 1. Clone the repository and navigate to the project directory.
+    ```bash
+    git clone git@github.com:alexanderiand/notification-service.git
+    ```
 2. Ensure all dependencies are installed, and the environment variables from local.env are set.
+ **If you need to install `make` for linux, and Windows WSL (Windows Subsystem for Linux)**
+  ```bash
+    sudo apt update
+    sudo apt install make
+  ```
+  For MacBook:
+  ```bash
+    brew install make
+  ```
+
 3. Run the project with:
 
 ```bash

@@ -1,3 +1,4 @@
 .vscode
 
+# vendor
 # local.env, for testing don't hide
