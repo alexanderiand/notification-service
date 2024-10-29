@@ -20,10 +20,10 @@ race: test
 rm_bin:
 	rm ./notification_service
 
-build_and_run: test rm_bin
+build_and_run: test
 	go build -o notification_service cmd/notification_service/main.go && ./notification_service
 
-run: race rm_bin
+run: race
 	go run cmd/notification_service/main.go
 
 .DEFAULT_GOAL := run
