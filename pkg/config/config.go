@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/go-yaml/yaml"
+	"gopkg.in/yaml.v2"
 )
 
 // environment variables
@@ -29,22 +29,22 @@ var (
 // Config
 type (
 	Config struct {
-		Env              string     `yaml:"env"`
-		Service          Service    `yaml:"service"`
-		HTTPServer       HTTPserver `yaml:"http_server"`
+		Env              string     `yaml:"env" json:"env"`
+		Service          Service    `yaml:"service" json:"service"`
+		HTTPServer       HTTPserver `yaml:"http_server" json:"http_server"`
 		DatabaseFilePath string     `env:"DATABASE_FILE_PATH"`
 	}
 
 	Service struct {
-		Name    string `yaml:"name"`
-		Version string `yaml:"version"`
+		Name    string `yaml:"name" json:"name"`
+		Version string `yaml:"version" json:"version"`
 	}
 
 	HTTPserver struct {
 		Addr          string        `env:"HTTP_SERVER_ADDR"`
-		RWTimeout     time.Duration `yaml:"rw_timeouts"`
-		IdleTimeout   time.Duration `yaml:"idle_timeout"`
-		MaxHeaderSize int           `yaml:"max_header_size"`
+		RWTimeout     time.Duration `yaml:"rw_timeouts" json:"rw_timeouts"`
+		IdleTimeout   time.Duration `yaml:"idle_timeout" json:"idle_timeouts"`
+		MaxHeaderSize int           `yaml:"max_header_size"  json:"max_header_size"`
 	}
 )
 

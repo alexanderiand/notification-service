@@ -27,16 +27,14 @@ func New(st Storage) *Repository {
 	return &Repository{DB: st}
 }
 
-// SaveNotification
+// SaveEvent into events table of the sqlite3 database, return  the saved event.id, nil
+// If something going wrong, return 0, and error
 func (r *Repository) SaveEvent(event *entity.Event) (evenID int, err error) {
-	// TODO: implement
-
-	return 0, nil
+	return r.DB.SaveEvent(event)
 }
 
-// GetAllEvents()
+// GetAllEvents select all events from events table of db, return []*entity.Events, nil
+// If something going wrong, return nil, and error
 func (r *Repository) GetAllEvents() (events []*entity.Event, err error) {
-	// TODO: implement
-
-	return nil, nil
+	return r.DB.GetAllEvents()
 }

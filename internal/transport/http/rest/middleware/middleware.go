@@ -2,10 +2,9 @@ package middleware
 
 import (
 	"log/slog"
+	"math/rand"
 	"net/http"
 	"time"
-
-	"github.com/gofrs/uuid"
 )
 
 // Middleware
@@ -28,20 +27,16 @@ func (r *BaseMiddleware) MainMiddleware(next http.HandlerFunc) http.HandlerFunc 
 // If something another going wrong, return ErrInternalServerError
 func (r *BaseMiddleware) RequestIDMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		ruuid := uuid.DefaultGenerator
-		uuidV4, err := ruuid.NewV4()
-		if err != nil {
-			slog.Error(err.Error())
-		}
+		// ruuid := uuid.DefaultGenerator
+		// uuidV4, err := ruuid.NewV4()
+		// if err != nil {
+		// 	slog.Error(err.Error())
+		// }
 
-		reqID := uuidV4.String()
+		// reqID := uuidV4.String()
+		reqID := GenerateFakeUUID(40)
 		xheader := "X-RequestID"
 		w.Header().Set(xheader, reqID)
-
-		log := slog.With(
-			slog.String("component", "middleware.RequestIDMiddleware"),
-		)
-		log.Info("X-RequestID: " + reqID)
 
 		next.ServeHTTP(w, r)
 	}
@@ -50,11 +45,6 @@ func (r *BaseMiddleware) RequestIDMiddleware(next http.HandlerFunc) http.Handler
 // LogMiddleware logged the metadata of the request like remote addr, req time,
 func (r *BaseMiddleware) LogMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log := slog.With(
-			slog.String("component", "middleware.LogMiddleware"),
-		)
-		log.Info("logger middleware enabled")
-
 		reqID := w.Header().Get("X-RequestID")
 
 		reqTime := time.Now()
@@ -78,3 +68,17 @@ func (r *BaseMiddleware) LogMiddleware(next http.HandlerFunc) http.HandlerFunc {
 }
 
 // Other middlewares...
+
+// FakeUUIDGenerator
+func GenerateFakeUUID(size int) string {
+	chars := []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+		"abcdefghijklmnopqrstuvwxyz" +
+		"0123456789")
+
+	b := make([]rune, size)
+	for i := range b {
+		b[i] = chars[rand.Intn(len(chars))]
+	}
+
+	return string(b)
+}

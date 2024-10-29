@@ -1,8 +1,8 @@
-env: "local" #local, dev, prod
+env: "prod" #local, dev, prod
 
 service:
   name: "notification-service"
-  version: "v0.0.1"
+  version: "v1.0.1"
 
 http_server:
   rw_timeouts: 5 # 5 second

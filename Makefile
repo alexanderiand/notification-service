@@ -17,10 +17,13 @@ test: lint
 race: test
 	go test -v -race ./...
 
-build_and_run: test
+rm_bin:
+	rm ./notification_service
+
+build_and_run: test rm_bin
 	go build -o notification_service cmd/notification_service/main.go && ./notification_service
 
-run: race
+run: race rm_bin
 	go run cmd/notification_service/main.go
 
 .DEFAULT_GOAL := run

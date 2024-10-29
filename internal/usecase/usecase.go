@@ -1,6 +1,10 @@
 package usecase
 
-import "github.com/alexanderiand/notification-service/internal/entity"
+import (
+	"log/slog"
+
+	"github.com/alexanderiand/notification-service/internal/entity"
+)
 
 // main Repository interface
 type NotificationRepo interface {
@@ -27,13 +31,27 @@ func New(nuc NotificationRepo) *UseCase {
 }
 
 func (uc *UseCase) GetAllEvents() (events []*entity.Event, err error) {
-	// TODO: implement
+	// other app logic
 
-	return nil, nil
+	events, err = uc.NotificationRepo.GetAllEvents()
+	if err != nil {
+		slog.Error(err.Error())
+		return nil, err
+	}
+
+	return events, nil
 }
 
+// SaveEvent into events table of the sqlite3 database, return  the saved event.id, nil
+// If something going wrong, return 0, and error
 func (uc *UseCase) SaveEvent(event *entity.Event) (eventID int, err error) {
-	// TODO: implement
+	// other app logic
 
-	return 0, nil
+	eventID, err = uc.NotificationRepo.SaveEvent(event)
+	if err != nil {
+		slog.Error(err.Error())
+		return 0, err
+	}
+
+	return eventID, nil
 }

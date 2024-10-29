@@ -3,6 +3,7 @@ package sqlite
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -81,14 +82,48 @@ func DoWithTries(fn func() error, attempts int, delay time.Duration) error {
 	return errors.New("error, 0 connection attempts left: the database is not connected")
 }
 
-func (s *SQLite) SaveEvent(event *entity.Event) (evenID int, err error) {
-	// TODO: implement
+// SaveEvent into events table of the sqlite3 database, return  the saved event.id, nil
+// If something going wrong, return 0, and error
+func (s *SQLite) SaveEvent(e *entity.Event) (evenID int, err error) {
+	op := "internal.infrastructure.storage.sqlite.SaveEvent"
 
-	return 0, nil
+	stmt, err := s.Prepare("INSERT INTO events(order_type, session_id, card, event_date, website_url) VALUES(?, ?, ?, ?, ?)")
+	if err != nil {
+		return 0, fmt.Errorf("%s %w", op, err)
+	}
+
+	res, err := stmt.Exec(e.OrderType, e.SessionID, e.Card, e.EventDate, e.WebSiteURL)
+	if err != nil {
+		return 0, fmt.Errorf("%s %w", op, err)
+	}
+
+	id, err := res.LastInsertId()
+	if err != nil {
+		return 0, fmt.Errorf("%s %w", op, err)
+	}
+
+	return int(id), nil
 }
 
+// GetAllEvents select all events from events table of db, return []*entity.Events, nil
+// If something going wrong, return nil, and error
 func (s *SQLite) GetAllEvents() (events []*entity.Event, err error) {
-	// TODO: implement
+	op := "internal.infrastructure.storage.sqlite.GetAllEvents"
 
-	return nil, nil
+	stmt, err := s.Query("SELECT id, order_type, session_id, card, event_date, website_url, created_at FROM events")
+	if err != nil {
+		return nil, fmt.Errorf("%s %w", op, err)
+	}
+
+	for stmt.Next() {
+		e := &entity.Event{}
+		err := stmt.Scan(e.ID, e.OrderType, e.SessionID, e.Card, e.EventDate, e.WebSiteURL)
+		if err != nil {
+			return nil, fmt.Errorf("%s %w", op, err)
+		}
+
+		events = append(events, e)
+	}
+
+	return events, nil
 }
